@@ -21,7 +21,7 @@ class MovieView(Resource):
         return movies_schema.dump(movie_service.get_movies()), 200
 
     def post(self):
-        if movie_service.create_movie(flask.request.json):
+        if movie_service.create_movie(**flask.request.json):
             return "Фильм создан", 200
         else:
             return "Фильм не создан, ошибка", 200
