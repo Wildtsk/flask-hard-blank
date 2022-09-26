@@ -28,7 +28,8 @@ class MovieDAO:
 
     def update_movie(self, uid, **kwargs):
         try:
-            self.session.query(Movie).get(uid).update(kwargs)
+            movie = self.det_one_movie_by_id(uid)
+            movie.update(kwargs)
             self.session.commit()
             return True
         except Exception as e:
@@ -38,7 +39,8 @@ class MovieDAO:
 
     def delete_movie(self, uid):
         try:
-            self.session.query(Movie).get(uid).delete()
+            movie = self.det_one_movie_by_id(uid)
+            self.session.delete(movie)
             self.session.commit()
             return True
         except Exception as e:
