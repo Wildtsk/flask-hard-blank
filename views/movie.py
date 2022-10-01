@@ -1,4 +1,5 @@
 import flask
+from flask import request
 from flask_restx import Resource, Namespace
 
 from dao.model.schemas import MovieSchema
@@ -33,7 +34,7 @@ class MovieView(Resource):
         return movie_schema.dump(movie_service.get_movie_by_id(uid=uid)), 200
 
     def put(self, uid):
-        if movie_service.get_update_movie(flask.request.json):
+        if movie_service.get_update_movie(**flask.request.json):
             return "Фильм обновлен", 200
         else:
             return "Фильм не обновлен, ошибка", 200
